@@ -38,6 +38,11 @@ const Header = () => {
       submenu: null,
     },
     {
+      name: "Dashboard",
+      link: "/analytics",
+      submenu: null,
+    },
+    {
       name: "About",
       link: "#",
       submenu: [
@@ -48,7 +53,10 @@ const Header = () => {
     {
       name: "Courses",
       link: "#",
-      submenu: [{ name: "Our Courses", link: "/courses" }],
+      submenu: [
+        { name: "Our Courses", link: "/courses" },
+        { name: "Roadmaps", link: "/road-map" },
+      ],
     },
     {
       name: "Communities",
