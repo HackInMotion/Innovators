@@ -8,7 +8,7 @@ const ClientLayout = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location?.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen">

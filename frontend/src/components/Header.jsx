@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Logo from "../../assets/Logo.webp";
-import { ShoppingCart, Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
+import Logo from "../assets/Logo.webp";
+import { ShoppingCart, Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
+  const navigate = useNavigate();
 
   const toggleSubmenu = (menu) => {
     if (openSubmenu === menu) {
@@ -25,8 +27,8 @@ const Header = () => {
   const menuItems = [
     {
       name: "Home",
-      link: "#",
-      submenu: null
+      link: "/",
+      submenu: null,
     },
     {
       name: "Pages",
@@ -36,73 +38,71 @@ const Header = () => {
         { name: "Membership Plans", link: "#" },
         { name: "Instructors", link: "#" },
         { name: "Student Registration", link: "#" },
-        { name: "FAQs", link: "#" }
-      ]
+        { name: "FAQs", link: "#" },
+      ],
     },
     {
       name: "Courses",
       link: "#",
       submenu: [
         { name: "Our Courses", link: "#" },
-        { name: "Become An Instructor", link: "#" }
-      ]
+        { name: "Become An Instructor", link: "#" },
+      ],
     },
     {
       name: "Webinars",
       link: "#",
-      submenu: [
-        { name: "Upcoming Webinars", link: "#" }
-      ]
+      submenu: [{ name: "Upcoming Webinars", link: "#" }],
     },
     {
       name: "Blog",
       link: "#",
-      submenu: null
+      submenu: null,
     },
     {
       name: "Contact",
       link: "#",
-      submenu: null
-    }
+      submenu: null,
+    },
   ];
 
   // Animation variants for left-sliding mobile menu
   const mobileMenuVariants = {
-    hidden: { 
+    hidden: {
       x: "-100%",
       opacity: 0,
-      transition: { 
+      transition: {
         duration: 0.3,
-        ease: "easeInOut"
-      }
+        ease: "easeInOut",
+      },
     },
-    visible: { 
+    visible: {
       x: 0,
       opacity: 1,
-      transition: { 
+      transition: {
         duration: 0.3,
-        ease: "easeInOut"
-      }
-    }
+        ease: "easeInOut",
+      },
+    },
   };
 
   const subMenuVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       height: 0,
-      transition: { 
+      transition: {
         duration: 0.2,
-        ease: "easeInOut"
-      }
+        ease: "easeInOut",
+      },
     },
-    visible: { 
+    visible: {
       opacity: 1,
       height: "auto",
-      transition: { 
+      transition: {
         duration: 0.2,
-        ease: "easeInOut"
-      }
-    }
+        ease: "easeInOut",
+      },
+    },
   };
 
   return (
@@ -120,19 +120,33 @@ const Header = () => {
               <li key={index} className="group relative">
                 {item.submenu ? (
                   <>
-                    <button 
+                    <button
                       className="text-gray-700 hover:text-blue-600 font-medium flex items-center"
                       onClick={() => toggleSubmenu(index)}
                     >
                       {item.name}
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 ml-1 group-hover:rotate-180"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
                       </svg>
                     </button>
                     <ul className="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
                       {item.submenu.map((subItem, subIndex) => (
                         <li key={subIndex}>
-                          <a href={subItem.link} className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                          <a
+                            href={subItem.link}
+                            className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                          >
                             {subItem.name}
                           </a>
                         </li>
@@ -140,7 +154,10 @@ const Header = () => {
                     </ul>
                   </>
                 ) : (
-                  <a href={item.link} className="text-gray-700 hover:text-blue-600 font-medium">
+                  <a
+                    href={item.link}
+                    className="text-gray-700 hover:text-blue-600 font-medium"
+                  >
                     {item.name}
                   </a>
                 )}
@@ -157,18 +174,24 @@ const Header = () => {
               0
             </span>
           </div>
-          
+
           <div className="hidden md:flex space-x-3">
-            <button className="px-4 py-2 text-gray-700 font-medium hover:text-blue-600">
+            <button
+              className="px-4 py-2 text-gray-700 font-medium hover:text-blue-600"
+              onClick={() => navigate("/login")}
+            >
               Login
             </button>
-            <button className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700">
+            <button
+              className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
+              onClick={() => navigate("/sign-up")}
+            >
               Register
             </button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden text-gray-700 focus:outline-none"
             onClick={toggleMobileMenu}
           >
@@ -190,7 +213,7 @@ const Header = () => {
               className="fixed inset-0 bg-black z-10 md:hidden"
               onClick={toggleMobileMenu}
             />
-            
+
             {/* Mobile Menu */}
             <motion.div
               initial="hidden"
@@ -203,21 +226,21 @@ const Header = () => {
                 {/* Menu Header with Close Button */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
                   <img src={Logo} alt="Logo" className="h-10" />
-                  <button 
+                  <button
                     className="text-gray-700 focus:outline-none"
                     onClick={toggleMobileMenu}
                   >
                     <X size={24} />
                   </button>
                 </div>
-                
+
                 {/* Menu Content */}
                 <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
                   {menuItems.map((item, index) => (
                     <div key={index} className="border-b border-gray-100 pb-2">
                       {item.submenu ? (
                         <>
-                          <button 
+                          <button
                             className="w-full flex justify-between items-center text-gray-700 hover:text-blue-600 font-medium py-2"
                             onClick={() => toggleSubmenu(index)}
                           >
@@ -239,9 +262,9 @@ const Header = () => {
                               >
                                 <div className="pl-4 py-2 space-y-2">
                                   {item.submenu.map((subItem, subIndex) => (
-                                    <a 
-                                      key={subIndex} 
-                                      href={subItem.link} 
+                                    <a
+                                      key={subIndex}
+                                      href={subItem.link}
                                       className="block py-2 text-gray-600 hover:text-blue-600"
                                       onClick={toggleMobileMenu}
                                     >
@@ -254,8 +277,8 @@ const Header = () => {
                           </AnimatePresence>
                         </>
                       ) : (
-                        <a 
-                          href={item.link} 
+                        <a
+                          href={item.link}
                           className="block text-gray-700 hover:text-blue-600 font-medium py-2"
                           onClick={toggleMobileMenu}
                         >
@@ -265,16 +288,16 @@ const Header = () => {
                     </div>
                   ))}
                 </div>
-                
+
                 {/* Mobile Auth Buttons */}
                 <div className="px-6 py-4 flex flex-col space-y-3 border-t border-gray-100">
-                  <button 
+                  <button
                     className="w-full px-4 py-2 text-gray-700 font-medium border border-gray-300 rounded-md hover:bg-gray-50"
                     onClick={toggleMobileMenu}
                   >
                     Login
                   </button>
-                  <button 
+                  <button
                     className="w-full px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
                     onClick={toggleMobileMenu}
                   >
