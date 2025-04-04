@@ -13,16 +13,16 @@ const Coursel = () => {
     <div className="relative">
       <Swiper
         ref={swiperRef}
-        modules={[Navigation, Pagination, Autoplay, Mousewheel]}
+        modules={[Navigation, Pagination, Autoplay]}
         autoplay={{ delay: 5000 }}
         pagination={{ clickable: true }}
         navigation
         mousewheel
         loop
-        className="w-full h-[500px]"
+        className="w-full h-[660px]"
       >
  <SwiperSlide>
-  <div className="relative w-full h-full bg-hero-pattern flex items-center">
+  <div className="relative w-full h-full  flex items-center bg-hero-1 bg-cover bg-center">
     <div className="absolute inset-0 bg-black opacity-40"></div>
     <div className="container mx-auto px-6 z-10 text-white">
       <div className="max-w-2xl space-y-4">
@@ -48,7 +48,7 @@ const Coursel = () => {
   </div>
 </SwiperSlide>
 <SwiperSlide>
-  <div className="relative w-full h-full bg-hero-pattern flex items-center">
+  <div className="relative w-full h-full bg-hero-2 flex items-center">
     <div className="absolute inset-0 bg-black opacity-40"></div>
     <div className="container mx-auto px-6 z-10 text-white">
       <div className="max-w-2xl space-y-4">
@@ -66,7 +66,7 @@ const Coursel = () => {
   </div>
 </SwiperSlide>
 <SwiperSlide>
-  <div className="relative w-full h-full bg-hero-pattern flex items-center">
+  <div className="relative w-full h-full bg-hero-3 flex items-center">
     <div className="absolute inset-0 bg-black opacity-40"></div>
     <div className="container mx-auto px-6 z-10 text-white">
       <div className="max-w-2xl space-y-4">

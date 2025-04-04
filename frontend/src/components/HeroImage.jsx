@@ -11,7 +11,7 @@ const HeroImage = () => {
     <div className="bg-[#f4f8fc] text-[#0d1b2a] font-sans">
       <div className="w-full h-[80vh] overflow-hidden">
         <img
-          className="w-full h-full object-cover border-b-4 border-[#007bff]"
+          className="w-full h-full object-cover scale-75 transition-transform duration-300 hover:scale-100"
           src={Landing}
           alt="landingimg"
         />
@@ -24,14 +24,14 @@ const HeroImage = () => {
       </div>
 
       <div className="flex flex-wrap justify-center gap-16 p-8">
-        <div className="max-w-[300px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:translate-y-[-10px] hover:shadow-2xl">
+        <div className="max-w-[300px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:translate-y-[-10px] hover:shadow-2xl p-6">
           <img
             className="w-full h-[180px] object-cover"
             src="https://img.freepik.com/premium-vector/database-administrator-dbms-software-data-center-hosting-server_194360-382.jpg"
             alt="DBMS"
           />
           <h2 className="text-[#007bff] text-xl font-semibold mt-4">DBMS</h2>
-          <p className="text-[#444] mt-2 px-4 text-sm">
+          <p className="text-[#444] mt-2 text-sm">
             Get hands-on with SQL and understand how databases are designed and
             managed.
           </p>
@@ -43,7 +43,7 @@ const HeroImage = () => {
           </a>
         </div>
 
-        <div className="max-w-[300px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:translate-y-[-10px] hover:shadow-2xl">
+        <div className="max-w-[300px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:translate-y-[-10px] hover:shadow-2xl p-6">
           <img
             className="w-full h-[180px] object-cover"
             src="https://img.freepik.com/free-vector/isometric-devops-illustration_52683-84175.jpg"
@@ -52,7 +52,7 @@ const HeroImage = () => {
           <h2 className="text-[#007bff] text-xl font-semibold mt-4">
             Python Programming
           </h2>
-          <p className="text-[#444] mt-2 px-4 text-sm">
+          <p className="text-[#444] mt-2 text-sm">
             Start coding in Python and build projects in data science,
             automation, and AI.
           </p>
@@ -64,7 +64,7 @@ const HeroImage = () => {
           </a>
         </div>
 
-        <div className="max-w-[300px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:translate-y-[-10px] hover:shadow-2xl">
+        <div className="max-w-[300px] bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:translate-y-[-10px] hover:shadow-2xl p-6">
           <img
             className="w-full h-[180px] object-cover"
             src="https://img.freepik.com/free-photo/hands-holding-neon-sign_23-2151922470.jpg"
@@ -73,7 +73,7 @@ const HeroImage = () => {
           <h2 className="text-[#007bff] text-xl font-semibold mt-4">
             Introduction to AI/ML
           </h2>
-          <p className="text-[#444] mt-2 px-4 text-sm">
+          <p className="text-[#444] mt-2 text-sm">
             Get an overview of AI and ML fundamentals with beginner-friendly
             projects.
           </p>
