@@ -2,7 +2,11 @@
 export default {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "hero-pattern": "url('/src/assets/Hero.avif')",
+      },
+    },
   },
   plugins: [],
 };
