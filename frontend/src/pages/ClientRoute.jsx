@@ -10,6 +10,7 @@ import FAQ from "./faq";
 import ITCareerRoadmaps from "./RoadMap";
 import CodeCompiler from "../components/Compiler";
 import StudentEngagementChart from '../components/StudentEngagementChart'
+import QuizContest from "./QuizContest";
 
 
 const ClientRoute = () => {
@@ -25,6 +26,7 @@ const ClientRoute = () => {
         <Route path="/analytics" element={<StudentEngagementChart />} />
         <Route path="/road-map" element={<ITCareerRoadmaps />} />
         <Route path="/compiler" element={<CodeCompiler />} />
+        <Route path="/quiz-contest" element={<QuizContest />} />
       </Route>
     </Routes>
   );
