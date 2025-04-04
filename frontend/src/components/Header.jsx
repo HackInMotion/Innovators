@@ -42,7 +42,7 @@ const Header = () => {
       link: "#",
       submenu: [
         { name: "About Us", link: "/about" },
-        { name: "FAQs", link: "#" },
+        { name: "FAQs", link: "/faq" },
       ],
     },
     {
@@ -68,7 +68,7 @@ const Header = () => {
       x: "-100%",
       opacity: 0,
       transition: {
-        duration: 0.3,
+        duration: 1,
         ease: "easeInOut",
       },
     },
@@ -76,7 +76,7 @@ const Header = () => {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 0.3,
+        duration: 1,
         ease: "easeInOut",
       },
     },

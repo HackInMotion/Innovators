@@ -188,7 +188,7 @@ const AboutUs = () => {
           you to join our growing community.
         </p>
         <a
-          href="/join"
+          href="/"
           className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
         >
           Get Started

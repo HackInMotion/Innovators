@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 const BotpressChat = () => {
   const [message, setMessage] = useState("");
+  
   const chatRef = useRef(null);
 
   useEffect(() => {

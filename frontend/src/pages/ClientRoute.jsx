@@ -6,6 +6,7 @@ import AboutUs from "./aboutus";
 import ContactUs from "./contactus";
 import Communities from "./communities";
 import Courses from "./courses";
+import FAQ from "./faq";
 
 const ClientRoute = () => {
   return (
@@ -13,6 +14,7 @@ const ClientRoute = () => {
       <Route path="/" element={<ClientLayout />}>
         <Route index element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/communities" element={<Communities />} />
         <Route path="/contact" element={<ContactUs />} />

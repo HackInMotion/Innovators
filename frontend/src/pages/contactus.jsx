@@ -34,80 +34,51 @@ const ContactForm = () => (
 
 // Contact Info Component
 const ContactInfo = () => (
-  <div className="lg:w-1/2 space-y-8">
-    <div className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h2>
-      <div className="space-y-5">
-        <div className="flex items-start">
-          <div className="bg-indigo-100 p-3 rounded-full mr-4">
-            <i className="fas fa-envelope text-indigo-600"></i>
+    <div className="lg:w-1/2 space-y-8">
+      <div className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h2>
+        <div className="space-y-5">
+          <div className="flex items-center space-x-4">
+            <img src="https://img.icons8.com/ios/50/000000/email.png" alt="Email" className="w-8 h-8" />
+            <div>
+              <h3 className="font-medium text-gray-800">Email Support</h3>
+              <p className="text-gray-600">support@studydoorstep.com</p>
+              <p className="text-gray-600">hacakthongndec@gmail.com</p>
+            </div>
           </div>
-          <div>
-            <h3 className="font-medium text-gray-800">Email Support</h3>
-            <p className="text-gray-600">support@studydoorstep.com</p>
-            <p className="text-gray-600">admissions@studydoorstep.com</p>
+  
+          <div className="flex items-center space-x-4">
+            <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Phone" className="w-8 h-8" />
+            <div>
+              <h3 className="font-medium text-gray-800">Phone (Optional)</h3>
+              <p className="text-gray-600">+91 70090 79926</p>
+              <p className="text-sm text-gray-500">Mon-Fri, 9AM-5PM EST</p>
+            </div>
           </div>
-        </div>
-
-        <div className="flex items-start">
-          <div className="bg-indigo-100 p-3 rounded-full mr-4">
-            <i className="fas fa-phone text-indigo-600"></i>
-          </div>
-          <div>
-            <h3 className="font-medium text-gray-800">Phone (Optional)</h3>
-            <p className="text-gray-600">+1 (800) 123-4567</p>
-            <p className="text-sm text-gray-500">Mon-Fri, 9AM-5PM EST</p>
-          </div>
-        </div>
-
-        <div className="flex items-start">
-          <div className="bg-indigo-100 p-3 rounded-full mr-4">
-            <i className="fas fa-map-marker-alt text-indigo-600"></i>
-          </div>
-          <div>
-            <h3 className="font-medium text-gray-800">Headquarters</h3>
-            <p className="text-gray-600">123 Education Boulevard</p>
-            <p className="text-gray-600">Boston, MA 02115, USA</p>
+  
+          <div className="flex items-center space-x-4">
+            <img src="https://img.icons8.com/ios/50/000000/marker.png" alt="Headquarters" className="w-8 h-8" />
+            <div>
+              <h3 className="font-medium text-gray-800">Headquarters</h3>
+              <p className="text-gray-600">Guru Nanak Dev Engineering College</p>
+              <p className="text-gray-600">Ludhiana, 141108, India</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="mt-8">
-        <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
-        <div className="flex space-x-4">
-          {["twitter", "linkedin-in", "instagram", "youtube", "github"].map((icon) => (
-            <a key={icon} href="#" className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition">
-              <i className={`fab fa-${icon}`}></i>
-            </a>
-          ))}
+  
+        <div className="mt-8">
+          <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
+          <div className="flex space-x-4">
+            {["twitter", "linkedin-in", "instagram", "youtube", "github"].map((icon) => (
+              <a key={icon} href="#" className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition">
+                <i className={`fab fa-${icon}`}></i>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
-
-// Quick Support Options Component
-const SupportOptions = () => (
-  <div className="bg-indigo-50 rounded-xl p-6 border border-indigo-100">
-    <h3 className="text-xl font-semibold text-indigo-800 mb-4">Quick Support Options</h3>
-    <ul className="space-y-3">
-      {[
-        { icon: "robot", title: "24/7 AI Chatbot", description: "Instant answers to your learning questions", link: "#" },
-        { icon: "users", title: "Community Forum", description: "Reddit-style discussions with peers", link: "#" },
-        { icon: "book-open", title: "Course Reviews", description: "Read expert reviews before enrolling", link: "#" },
-      ].map((item) => (
-        <li key={item.title} className="flex items-start">
-          <i className={`fas fa-${item.icon} text-indigo-600 mt-1 mr-3`}></i>
-          <div>
-            <p className="font-medium text-gray-800">{item.title}</p>
-            <p className="text-gray-600 text-sm">{item.description}</p>
-            <a href={item.link} className="text-indigo-600 text-sm font-medium hover:underline">Learn More →</a>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+  );
 
 // Map Section Component
 const MapSection = () => (
@@ -117,7 +88,7 @@ const MapSection = () => (
       <p className="text-gray-600 mb-4">Visit our headquarters or connect virtually - we're always available to support your learning journey.</p>
       <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2948.66583439952!2d-71.0997257241646!3d42.3458473713886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e379f0a8a5198d%3A0x9e8415e7866b404!2s123%20Education%20Boulevard%2C%20Boston%2C%20MA%2002115!5e0!3m2!1sen!2sus!4v1623862343964!5m2!1sen!2sus"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6919.283599793432!2d75.8569916!3d30.8606954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a828f09011b15%3A0xbf3f5b51dcc81b12!2sGuru%20Nanak%20Dev%20Engineering%20College!5e0!3m2!1sen!2sus!4v1588957985324!5m2!1sen!2sus"
           width="100%"
           height="450"
           style={{ border: 0 }}
@@ -127,22 +98,6 @@ const MapSection = () => (
           className="rounded-lg"
         ></iframe>
       </div>
-    </div>
-  </div>
-);
-
-// Courses Call-to-Action Component
-const CoursesCTA = () => (
-  <div className="mt-16 bg-gradient-to-r from-indigo-700 to-purple-600 rounded-xl p-8 text-white">
-    <div className="max-w-3xl mx-auto text-center">
-      <h2 className="text-2xl md:text-3xl font-bold mb-4">Explore Our In-House Coding Courses</h2>
-      <p className="text-lg mb-6">Master in-demand skills with our expert-led courses in HTML, CSS, JavaScript, C++, Python, and more.</p>
-      <div className="flex flex-wrap justify-center gap-3 mb-6">
-        {["HTML/CSS", "JavaScript", "Python", "C++", "Web Development"].map((course) => (
-          <span key={course} className="bg-white bg-opacity-20 px-4 py-2 rounded-full">{course}</span>
-        ))}
-      </div>
-      <a href="#" className="inline-block bg-white text-indigo-700 font-medium py-3 px-8 rounded-lg hover:bg-gray-100 transition">Browse All Courses</a>
     </div>
   </div>
 );
@@ -162,9 +117,7 @@ const ContactUs = () => (
       <ContactInfo />
     </div>
 
-    <SupportOptions />
     <MapSection />
-    <CoursesCTA />
   </div>
 );
 
