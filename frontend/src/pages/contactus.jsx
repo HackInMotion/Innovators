@@ -66,16 +66,21 @@ const ContactInfo = () => (
           </div>
         </div>
   
-        <div className="mt-8">
-          <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
-          <div className="flex space-x-4">
-            {["twitter", "linkedin-in", "instagram", "youtube", "github"].map((icon) => (
-              <a key={icon} href="#" className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition">
-                <i className={`fab fa-${icon}`}></i>
-              </a>
-            ))}
-          </div>
-        </div>
+<div className="mt-8">
+  <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
+  <div className="flex space-x-4">
+    {["linkedin-in", "instagram", "github"].map((icon) => (
+      <a
+        key={icon}
+        href="#"
+        className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
+      >
+        <i className={`fab fa-${icon}`}></i>
+      </a>
+    ))}
+  </div>
+</div>
+
       </div>
     </div>
   );
