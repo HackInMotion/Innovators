@@ -1,4 +1,5 @@
 import React from 'react';
+import { Linkedin, Instagram, Github } from 'lucide-react';
 
 // Contact Form Component
 const ContactForm = () => (
@@ -34,56 +35,67 @@ const ContactForm = () => (
 
 // Contact Info Component
 const ContactInfo = () => (
-    <div className="lg:w-1/2 space-y-8">
-      <div className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h2>
-        <div className="space-y-5">
-          <div className="flex items-center space-x-4">
-            <img src="https://img.icons8.com/ios/50/000000/email.png" alt="Email" className="w-8 h-8" />
-            <div>
-              <h3 className="font-medium text-gray-800">Email Support</h3>
-              <p className="text-gray-600">support@studydoorstep.com</p>
-              <p className="text-gray-600">hacakthongndec@gmail.com</p>
-            </div>
-          </div>
-  
-          <div className="flex items-center space-x-4">
-            <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Phone" className="w-8 h-8" />
-            <div>
-              <h3 className="font-medium text-gray-800">Phone (Optional)</h3>
-              <p className="text-gray-600">+91 70090 79926</p>
-              <p className="text-sm text-gray-500">Mon-Fri, 9AM-5PM EST</p>
-            </div>
-          </div>
-  
-          <div className="flex items-center space-x-4">
-            <img src="https://img.icons8.com/ios/50/000000/marker.png" alt="Headquarters" className="w-8 h-8" />
-            <div>
-              <h3 className="font-medium text-gray-800">Headquarters</h3>
-              <p className="text-gray-600">Guru Nanak Dev Engineering College</p>
-              <p className="text-gray-600">Ludhiana, 141108, India</p>
-            </div>
+  <div className="lg:w-1/2 space-y-8">
+    <div className="bg-white rounded-xl shadow-md p-8 hover:shadow-lg transition-shadow">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Contact Information</h2>
+      <div className="space-y-5">
+        <div className="flex items-center space-x-4">
+          <img src="https://img.icons8.com/ios/50/000000/email.png" alt="Email" className="w-8 h-8" />
+          <div>
+            <h3 className="font-medium text-gray-800">Email Support</h3>
+            <p className="text-gray-600">support@studydoorstep.com</p>
+            <p className="text-gray-600">hacakthongndec@gmail.com</p>
           </div>
         </div>
-  
-<div className="mt-8">
-  <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
-  <div className="flex space-x-4">
-    {["linkedin-in", "instagram", "github"].map((icon) => (
-      <a
-        key={icon}
-        href="#"
-        className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
-      >
-        <i className={`fab fa-${icon}`}></i>
-      </a>
-    ))}
-  </div>
-</div>
 
+        <div className="flex items-center space-x-4">
+          <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Phone" className="w-8 h-8" />
+          <div>
+            <h3 className="font-medium text-gray-800">Phone (Optional)</h3>
+            <p className="text-gray-600">+91 70090 79926</p>
+            <p className="text-sm text-gray-500">Mon-Fri, 9AM-5PM EST</p>
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <img src="https://img.icons8.com/ios/50/000000/marker.png" alt="Headquarters" className="w-8 h-8" />
+          <div>
+            <h3 className="font-medium text-gray-800">Headquarters</h3>
+            <p className="text-gray-600">Guru Nanak Dev Engineering College</p>
+            <p className="text-gray-600">Ludhiana, 141108, India</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
+        <div className="flex space-x-4">
+          <a
+            href="#"
+            className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
+            aria-label="LinkedIn"
+          >
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a
+            href="#"
+            className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
+            aria-label="Instagram"
+          >
+            <Instagram className="w-5 h-5" />
+          </a>
+          <a
+            href="#"
+            className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
+            aria-label="GitHub"
+          >
+            <Github className="w-5 h-5" />
+          </a>
+        </div>
       </div>
     </div>
-  );
+  </div>
+);
 
 // Map Section Component
 const MapSection = () => (
