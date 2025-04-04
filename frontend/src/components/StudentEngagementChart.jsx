@@ -428,34 +428,34 @@ const StudentActivityTracker = () => {
             <tbody className="bg-white divide-y divide-gray-200">
               {[
                 {
-                  date: "2023-05-15",
+                  date: "2025-03-25",
                   activity: "Watched Lecture 5.2",
                   duration: "45 min",
-                  course: "Mathematics",
+                  course: "Python Programming",
                 },
                 {
-                  date: "2023-05-14",
+                  date: "2025-03-24",
                   activity: "Submitted Assignment 3",
                   duration: "60 min",
-                  course: "Science",
+                  course: "Web Development",
                 },
                 {
-                  date: "2023-05-13",
+                  date: "2025-03-23",
                   activity: "Participated in Forum",
                   duration: "25 min",
-                  course: "Literature",
+                  course: "React Basics",
                 },
                 {
-                  date: "2023-05-12",
+                  date: "2025-03-22",
                   activity: "Completed Quiz 2",
                   duration: "30 min",
-                  course: "History",
+                  course: "Pyhton Programming",
                 },
                 {
-                  date: "2023-05-11",
+                  date: "2025-03-21",
                   activity: "Reviewed Materials",
                   duration: "40 min",
-                  course: "Mathematics",
+                  course: "React Basics",
                 },
               ].map((item, i) => (
                 <tr key={i}>
