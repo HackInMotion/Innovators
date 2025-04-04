@@ -1,0 +1,168 @@
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url('bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .wrapper {
+        width: 90%;
+        max-width: 380px; /* Reduced width */
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.1));
+        border: 2px solid rgba(255, 255, 255, .2);
+        backdrop-filter: blur(10px); /* Reduced blur effect */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+        color: #fff;
+        border-radius: 20px; /* More rounded edges */
+        padding: 40px 40px; /* Adjusted padding for better spacing */
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .wrapper:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+    }
+
+    .card {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .fade-out {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .fade-in {
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    .wrapper h1 {
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .wrapper .input-box {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        margin: 30px 0;
+    }
+
+    .input-box input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, .4);
+        border-radius: 40px;
+        font-size: 16px;
+        color: #fff;
+        padding: 20px 45px 20px 20px;
+        transition: border-color 0.3s ease;
+    }
+
+    .input-box input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .input-box input:focus {
+        border-color: #fff;
+    }
+
+    .input-box i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+    }
+
+    .wrapper .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14.5px;
+        margin: -15px 0 15px;
+    }
+
+    .remember-forgot label input {
+        accent-color: #fff;
+        margin-right: 3px;
+    }
+
+    .remember-forgot a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .remember-forgot a:hover {
+        text-decoration: underline;
+    }
+
+    .wrapper .btn {
+        width: 100%;
+        height: 45px;
+        background: linear-gradient(90deg, #d72727, #dd7171); /* Gradient background */
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    .wrapper .btn:hover {
+        background: linear-gradient(90deg, #dd7171, #c52d2d); /* Reversed gradient on hover */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .wrapper .register-link {
+        font-size: 14.5px;
+        text-align: center;
+        margin: 20px 0 15px;
+    }
+
+    .register-link p a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .register-link p a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+        .wrapper {
+            padding: 20px 30px;
+        }
+
+        .wrapper h1 {
+            font-size: 30px;
+        }
+
+        .input-box input {
+            font-size: 14px;
+        }
+
+        .wrapper .btn {
+            height: 40px;
+            font-size: 14px;
+        }
+    }
