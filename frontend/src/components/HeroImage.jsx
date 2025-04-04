@@ -6,8 +6,6 @@ import D from '../assets/d.svg';
 import Landing from '../assets/landing.jpg';
 import mobile from '../assets/mobile.jpg';
 
-
-
 const HeroImage = () => {
   return (
     <div className="bg-[#f4f8fc] text-[#0d1b2a] font-sans">
