@@ -17,9 +17,7 @@ const Footer = () => {
         <div className="space-y-4">
           <h3 className="text-white text-xl font-bold mb-4">About Us</h3>
           <p className="text-gray-400">
-            We are providing high-quality online courses for about ten years. Our
-            all instructors expert and highly experienced. We provide all kinds of
-            course materials to our students.
+          Experience expert-led, high-quality online courses backed by 10 years of excellence. Access comprehensive materials and succeed with the best in the industry!
           </p>
           <div className="flex space-x-4 pt-2">
             <a href="#" className="text-gray-400 hover:text-white">
@@ -46,7 +44,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Business
+               HTML
               </a>
             </li>
             <li>
@@ -54,7 +52,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Education
+                CSS
               </a>
             </li>
             <li>
@@ -62,7 +60,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Graphics Design
+                Java
               </a>
             </li>
             <li>
@@ -70,7 +68,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Programming
+                JavaScript
               </a>
             </li>
             <li>
@@ -78,7 +76,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                Web Design
+                C++ Programming
               </a>
             </li>
             <li>
@@ -86,7 +84,7 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                WordPress
+               Data Structure & Algorithm
               </a>
             </li>
           </ul>
