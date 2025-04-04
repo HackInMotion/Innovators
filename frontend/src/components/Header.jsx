@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/Logo.jpg";
 import { ShoppingCart, Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../apiClient/apiClient";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
 
   const toggleSubmenu = (menu) => {
     if (openSubmenu === menu) {
@@ -22,6 +25,11 @@ const Header = () => {
     if (!isMobileMenuOpen) {
       setOpenSubmenu(null);
     }
+  };
+
+  const getImageUrl = (image) => {
+    if (!image) return null;
+    return `${import.meta.env.VITE_BASE_IMAGE_URL}/${image}`;
   };
 
   const menuItems = [
@@ -105,6 +113,33 @@ const Header = () => {
     },
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      apiClient
+        .get(`/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setUser(res.data.data);
+          localStorage.setItem("user", JSON.stringify(res.data.data));
+        })
+        .catch((err) => {
+          console.error("Authentication failed:", err);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
   return (
     <div className="relative">
       <div className="flex items-center justify-between px-20 py-4 bg-white shadow-md">
@@ -168,27 +203,47 @@ const Header = () => {
 
         {/* Cart and Auth Buttons */}
         <div className="flex items-center space-x-6">
-          <div className="relative">
+          {/* <div className="relative">
             <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-blue-600" />
             <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
               0
             </span>
-          </div>
+          </div> */}
 
-          <div className="hidden md:flex space-x-3">
-            <button
-              className="px-4 py-2 text-gray-700 font-medium hover:text-blue-600"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-            <button
-              className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
-              onClick={() => navigate("/sign-up")}
-            >
-              Register
-            </button>
-          </div>
+          {user ? (
+            <div className="hidden md:flex items-center space-x-3">
+              <img
+                src={
+                  getImageUrl(user.profilePicture) ||
+                  "https://via.placeholder.com/40"
+                }
+                alt="User"
+                className="h-10 w-10 rounded-full object-cover"
+              />
+              <span className="font-bold capitalize">{user.username}</span>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-gray-700 font-medium hover:text-red-600"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="hidden md:flex space-x-3">
+              <button
+                className="px-4 py-2 text-gray-700 font-medium hover:text-blue-600"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
+                onClick={() => navigate("/sign-up")}
+              >
+                Register
+              </button>
+            </div>
+          )}
 
           {/* Mobile Menu Button */}
           <button
@@ -290,20 +345,53 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Auth Buttons */}
-                <div className="px-6 py-4 flex flex-col space-y-3 border-t border-gray-100">
-                  <button
-                    className="w-full px-4 py-2 text-gray-700 font-medium border border-gray-300 rounded-md hover:bg-gray-50"
-                    onClick={toggleMobileMenu}
-                  >
-                    Login
-                  </button>
-                  <button
-                    className="w-full px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
-                    onClick={toggleMobileMenu}
-                  >
-                    Register
-                  </button>
-                </div>
+                {user ? (
+                  <>
+                    <div className="flex items-center space-x-3">
+                      <img
+                        src={
+                          getImageUrl(user.profilePicture) ||
+                          "https://via.placeholder.com/40"
+                        }
+                        alt="User"
+                        className="h-10 w-10 rounded-full object-cover"
+                      />
+                      <span className="text-gray-700 font-medium">
+                        {user.name}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        toggleMobileMenu();
+                      }}
+                      className="w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="w-full px-4 py-2 text-gray-700 font-medium border border-gray-300 rounded-md hover:bg-gray-50"
+                      onClick={() => {
+                        toggleMobileMenu();
+                        navigate("/login");
+                      }}
+                    >
+                      Login
+                    </button>
+                    <button
+                      className="w-full px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
+                      onClick={() => {
+                        toggleMobileMenu();
+                        navigate("/sign-up");
+                      }}
+                    >
+                      Register
+                    </button>
+                  </>
+                )}
               </div>
             </motion.div>
           </>
