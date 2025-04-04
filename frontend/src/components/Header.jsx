@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../assets/Logo.webp";
+import Logo from "../assets/Logo.jpg";
 import { ShoppingCart, Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -107,10 +107,10 @@ const Header = () => {
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
+      <div className="flex items-center justify-between px-20 py-4 bg-white shadow-md">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <img src={Logo} alt="Logo" className="h-12" />
+          <img src={Logo} alt="Logo" className="h-12 scale-125" />
         </div>
 
         {/* Desktop Navigation */}
