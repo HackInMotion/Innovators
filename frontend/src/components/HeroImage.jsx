@@ -11,7 +11,7 @@ const HeroImage = () => {
     <div className="bg-[#f4f8fc] text-[#0d1b2a] font-sans">
       <div className="w-full h-[80vh] overflow-hidden">
         <img
-          className="w-full h-full object-cover scale-75 transition-transform duration-300 hover:scale-100"
+          className="w-full h-full object-cover scale-75"
           src={Landing}
           alt="landingimg"
         />

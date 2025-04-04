@@ -11,7 +11,6 @@ const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
-
   const toggleSubmenu = (menu) => {
     if (openSubmenu === menu) {
       setOpenSubmenu(null);
@@ -39,37 +38,26 @@ const Header = () => {
       submenu: null,
     },
     {
-      name: "Pages",
+      name: "About",
       link: "#",
       submenu: [
-        { name: "About Us", link: "#" },
-        { name: "Membership Plans", link: "#" },
-        { name: "Instructors", link: "#" },
-        { name: "Student Registration", link: "#" },
+        { name: "About Us", link: "/about" },
         { name: "FAQs", link: "#" },
       ],
     },
     {
       name: "Courses",
       link: "#",
-      submenu: [
-        { name: "Our Courses", link: "#" },
-        { name: "Become An Instructor", link: "#" },
-      ],
+      submenu: [{ name: "Our Courses", link: "/courses" }],
     },
     {
-      name: "Webinars",
-      link: "#",
-      submenu: [{ name: "Upcoming Webinars", link: "#" }],
-    },
-    {
-      name: "Blog",
-      link: "#",
+      name: "Communities",
+      link: "/communities",
       submenu: null,
     },
     {
       name: "Contact",
-      link: "#",
+      link: "/contact",
       submenu: null,
     },
   ];

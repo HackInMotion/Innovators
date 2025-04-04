@@ -9,7 +9,6 @@ const Home = () => {
     <>
       <Carousel />
       <HeroImage />
-      <ForumPage />
       <BotpressChat />
     </>
   );
