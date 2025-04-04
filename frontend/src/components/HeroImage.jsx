@@ -85,7 +85,7 @@ const HeroImage = () => {
           </a>
         </div>
 
-        <a href="#" className="self-center mt-8">
+        <a href="/courses" className="self-center mt-8">
           <img
             className="w-16 h-16 transition-transform duration-200 hover:rotate-90 hover:scale-110"
             src={A}

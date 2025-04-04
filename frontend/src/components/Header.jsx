@@ -68,11 +68,11 @@ const Header = () => {
       link: "/contact",
       submenu: null,
     },
-    // {
-    //   name: "Compiler",
-    //   link: "/compiler",
-    //   submenu: null,
-    // },
+    {
+      name: "Quiz Contest",
+      link: "/quiz-contest",
+      submenu: null,
+    },
   ];
 
   // Animation variants for left-sliding mobile menu

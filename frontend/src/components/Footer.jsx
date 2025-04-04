@@ -10,6 +10,14 @@ import {
 } from "lucide-react";
 
 const Footer = () => {
+  const categories = [
+    "HTML",
+    "CSS",
+    "Java",
+    "JavaScript",
+    "C++ Programming",
+    "Data Structure & Algorithm",
+  ];
   return (
     <footer className="bg-gray-900 text-gray-300 pt-12 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -17,7 +25,9 @@ const Footer = () => {
         <div className="space-y-4">
           <h3 className="text-white text-xl font-bold mb-4">About Us</h3>
           <p className="text-gray-400">
-          Experience expert-led, high-quality online courses backed by 10 years of excellence. Access comprehensive materials and succeed with the best in the industry!
+            Experience expert-led, high-quality online courses backed by 10
+            years of excellence. Access comprehensive materials and succeed with
+            the best in the industry!
           </p>
           <div className="flex space-x-4 pt-2">
             <a href="#" className="text-gray-400 hover:text-white">
@@ -39,54 +49,16 @@ const Footer = () => {
         <div className="space-y-4">
           <h3 className="text-white text-xl font-bold mb-4">Categories</h3>
           <ul className="space-y-2">
-            <li>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-               HTML
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                CSS
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Java
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                JavaScript
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                C++ Programming
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-               Data Structure & Algorithm
-              </a>
-            </li>
+            {categories.map((category, index) => (
+              <li key={index}>
+                <a
+                  href="/courses"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  {category}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -123,7 +95,7 @@ const Footer = () => {
               <MapPin className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
               <span className="text-gray-400">
                 Guru Nanak Dev Engineerimg College, Ludhiana, Punjab, India
-                <br /> 
+                <br />
               </span>
             </li>
             <li className="flex items-center space-x-3">
@@ -150,9 +122,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="max-w-7xl mx-auto border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
-        <p>
-          © {new Date().getFullYear()} Online Courses. All rights reserved.
-        </p>
+        <p>© {new Date().getFullYear()} Online Courses. All rights reserved.</p>
       </div>
     </footer>
   );
