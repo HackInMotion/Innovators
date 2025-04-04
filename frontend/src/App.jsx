@@ -1,5 +1,7 @@
+import LoginPage from "./pages/loginPage";
+
 function App() {
-  return;
+  return <LoginPage/>
 }
 
 export default App;
