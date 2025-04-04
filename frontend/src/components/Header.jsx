@@ -38,17 +38,17 @@ const Header = () => {
       submenu: null,
     },
     {
-      name: "Dashboard",
-      link: "/analytics",
-      submenu: null,
-    },
-    {
       name: "About",
       link: "#",
       submenu: [
         { name: "About Us", link: "/about" },
         { name: "FAQs", link: "/faq" },
       ],
+    },
+    {
+      name: "Dashboard",
+      link: "/analytics",
+      submenu: null,
     },
     {
       name: "Courses",
@@ -64,13 +64,13 @@ const Header = () => {
       submenu: null,
     },
     {
-      name: "Contact",
-      link: "/contact",
+      name: "Quiz Contest",
+      link: "/quiz-contest",
       submenu: null,
     },
     {
-      name: "Quiz Contest",
-      link: "/quiz-contest",
+      name: "Contact",
+      link: "/contact",
       submenu: null,
     },
   ];
