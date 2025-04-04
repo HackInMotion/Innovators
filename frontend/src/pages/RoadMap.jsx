@@ -433,7 +433,7 @@ const ITCareerRoadmaps = () => {
         </div>
 
         {/* Career Tips */}
-        <div className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl shadow-xl overflow-hidden">
+        {/* <div className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl shadow-xl overflow-hidden">
           <div className="px-6 py-8">
             <div className="max-w-3xl mx-auto text-center">
               <h3 className="text-2xl font-bold text-white mb-4">
@@ -457,17 +457,10 @@ const ITCareerRoadmaps = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Footer */}
         <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>
-            Roadmaps are guidelines - adapt based on your interests and market
-            demands
-          </p>
-          <p className="mt-2">
-            Last updated: {new Date().toLocaleDateString()}
-          </p>
         </div>
       </div>
     </div>
