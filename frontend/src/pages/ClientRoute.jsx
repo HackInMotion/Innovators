@@ -7,6 +7,10 @@ import ContactUs from "./contactus";
 import Communities from "./communities";
 import Courses from "./courses";
 import FAQ from "./faq";
+import ITCareerRoadmaps from "./RoadMap";
+import CodeCompiler from "../components/Compiler";
+import StudentEngagementChart from '../components/StudentEngagementChart'
+
 
 const ClientRoute = () => {
   return (
@@ -18,6 +22,9 @@ const ClientRoute = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/communities" element={<Communities />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/analytics" element={<StudentEngagementChart />} />
+        <Route path="/road-map" element={<ITCareerRoadmaps />} />
+        <Route path="/compiler" element={<CodeCompiler />} />
       </Route>
     </Routes>
   );
