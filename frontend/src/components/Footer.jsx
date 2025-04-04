@@ -101,8 +101,8 @@ const Footer = () => {
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                <p>Learn Webs Applications Development from Experts</p>
-                <p className="text-sm text-gray-500">April 1, 2021</p>
+                <p>Learn Web Development from Experts</p>
+                <p className="text-sm text-gray-500">March 1, 2025</p>
               </a>
             </li>
             <li>
@@ -111,7 +111,7 @@ const Footer = () => {
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 <p>Expand Your Career Opportunities With Python</p>
-                <p className="text-sm text-gray-500">April 1, 2021</p>
+                <p className="text-sm text-gray-500">March 1, 2025</p>
               </a>
             </li>
           </ul>
@@ -124,16 +124,17 @@ const Footer = () => {
             <li className="flex items-start space-x-3">
               <MapPin className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
               <span className="text-gray-400">
-                250/A Oval Street, Mount View, London, United Kingdom
+                Guru Nanak Dev Engineerimg College, Ludhiana, Punjab, India
+                <br /> 
               </span>
             </li>
             <li className="flex items-center space-x-3">
               <Mail className="h-5 w-5 text-gray-400" />
               <a
-                href="mailto:support@example.com"
+                href="mailto:hackathongndec@gmail.com"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                support@example.com
+                hackathongndec@gmail.com
               </a>
             </li>
             <li className="flex items-center space-x-3">
@@ -142,7 +143,7 @@ const Footer = () => {
                 href="tel:+981234567890"
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                +98 12345 67890
+                +91 70090 79926
               </a>
             </li>
           </ul>
