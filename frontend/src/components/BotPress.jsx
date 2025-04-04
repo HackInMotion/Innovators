@@ -32,10 +32,6 @@ const BotpressChat = () => {
           clientId: "6f5b19bd-b4bf-4900-9ac9-2348a5af3571",
           selector: "#webchat",
         });
-
-        window.botpress.on("webchat:ready", () => {
-          window.botpress.open();
-        });
       }
     };
     document.body.appendChild(script);
@@ -45,15 +41,23 @@ const BotpressChat = () => {
     };
   }, []);
 
+  const handleClick = () => {
+    if (window.botpress) {
+      window.botpress.open();
+    }
+  };
+
   return ReactDOM.createPortal(
     <div className="fixed bottom-4 right-4 w-96 max-w-sm rounded-lg z-50">
       <div
         id="webchat"
         ref={chatRef}
-        className="w-full h-96 rounded-lg overflow-hidden"
+        className="w-full h-96 rounded-lg overflow-hidden cursor-pointer"
+        onClick={handleClick}
       ></div>
     </div>,
     document.body
   );
 };
+
 export default BotpressChat;

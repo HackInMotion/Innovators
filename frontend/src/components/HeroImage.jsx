@@ -36,7 +36,7 @@ const HeroImage = () => {
             managed.
           </p>
           <a
-            href="#"
+            href="/courses"
             className="inline-block mt-4 px-6 py-2 text-white bg-gradient-to-r from-[#007bff] to-[#0056b3] rounded-md transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#0056b3] hover:to-[#004494]"
           >
             Go To Course
@@ -57,7 +57,7 @@ const HeroImage = () => {
             automation, and AI.
           </p>
           <a
-            href="#"
+            href="/courses"
             className="inline-block mt-4 px-6 py-2 text-white bg-gradient-to-r from-[#007bff] to-[#0056b3] rounded-md transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#0056b3] hover:to-[#004494]"
           >
             Go To Course
@@ -78,7 +78,7 @@ const HeroImage = () => {
             projects.
           </p>
           <a
-            href="#"
+            href="/courses"
             className="inline-block mt-4 px-6 py-2 text-white bg-gradient-to-r from-[#007bff] to-[#0056b3] rounded-md transition-colors duration-300 hover:bg-gradient-to-r hover:from-[#0056b3] hover:to-[#004494]"
           >
             Go To Course
