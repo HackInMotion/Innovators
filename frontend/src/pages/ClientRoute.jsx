@@ -14,6 +14,7 @@ import QuizContest from "./QuizContest";
 import CoursesByCategory from "../components/CoursesByCategory";
 import CourseDetail from "../components/CourseDetail";
 import CoursePlayer from "../components/CoursePlayer";
+import Categories from "../components/Categories";
 
 const ClientRoute = () => {
   return (
@@ -22,7 +23,7 @@ const ClientRoute = () => {
         <Route index element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses" element={<Categories />} />
         <Route path="/communities" element={<Communities />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/analytics" element={<StudentEngagementChart />} />

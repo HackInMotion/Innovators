@@ -8,7 +8,6 @@ const Home = () => {
     <>
       <Carousel />
       <HeroImage />
-      <Categories />
     </>
   );
 };

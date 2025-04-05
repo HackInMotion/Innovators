@@ -29,7 +29,7 @@ const CourseDetail = () => {
   });
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NDM2NzIwMDksImV4cCI6MTc0MzY3NTYwOX0.ezj_gMbsR2ykVlzIHMK3lhDmyjKxtn6hBp7M3kQGxUg";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NDM4MTg0NzgsImV4cCI6MTc0MzgyMjA3OH0.9TqOi3GbCGC2FcQdfOJ6kvSdrITfoX7JcN3e1C8Qc-4";
 
   const [createOrder] = useMutation(CREATE_ORDER);
   const [verifyPayment] = useMutation(VERIFY_PAYMENT);
