@@ -48,7 +48,7 @@ const BotpressChat = () => {
   };
 
   return ReactDOM.createPortal(
-    <div className="fixed bottom-4 right-4 w-96 max-w-sm rounded-lg z-50">
+    <div className="fixed bottom-4 right-4 w-96 max-w-sm rounded-lg">
       <div
         id="webchat"
         ref={chatRef}
