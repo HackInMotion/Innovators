@@ -71,21 +71,21 @@ const ContactInfo = () => (
         <h3 className="font-medium text-gray-800 mb-3">Follow Us</h3>
         <div className="flex space-x-4">
           <a
-            href="#"
+            href="https://www.linkedin.com/in/aryan-pandey084/"
             className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
             aria-label="LinkedIn"
           >
             <Linkedin className="w-5 h-5" />
           </a>
           <a
-            href="#"
+            href="https://www.instagram.com/aryanpandey.7077/"
             className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
             aria-label="Instagram"
           >
             <Instagram className="w-5 h-5" />
           </a>
           <a
-            href="#"
+            href="https://github.com/Aryan02006"
             className="bg-gray-100 hover:bg-indigo-100 p-3 rounded-full text-gray-700 hover:text-indigo-600 transition"
             aria-label="GitHub"
           >
