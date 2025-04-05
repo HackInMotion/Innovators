@@ -9,9 +9,11 @@ import Courses from "./courses";
 import FAQ from "./faq";
 import ITCareerRoadmaps from "./RoadMap";
 import CodeCompiler from "../components/Compiler";
-import StudentEngagementChart from '../components/StudentEngagementChart'
+import StudentEngagementChart from "../components/StudentEngagementChart";
 import QuizContest from "./QuizContest";
-
+import CoursesByCategory from "../components/CoursesByCategory";
+import CourseDetail from "../components/CourseDetail";
+import CoursePlayer from "../components/CoursePlayer";
 
 const ClientRoute = () => {
   return (
@@ -27,6 +29,12 @@ const ClientRoute = () => {
         <Route path="/road-map" element={<ITCareerRoadmaps />} />
         <Route path="/compiler" element={<CodeCompiler />} />
         <Route path="/quiz-contest" element={<QuizContest />} />
+        <Route path="/category/:category" element={<CoursesByCategory />} />
+        <Route path="/course/:id" element={<CourseDetail />} />
+        <Route
+          path="/enroll-course/:courseId/coursePlayer"
+          element={<CoursePlayer />}
+        />
       </Route>
     </Routes>
   );
