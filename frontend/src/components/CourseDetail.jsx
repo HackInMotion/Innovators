@@ -61,6 +61,8 @@ const CourseDetail = () => {
     }
   };
   const enrollCourse = async (course) => {
+    if (course.price == 0.0)
+      window.location.href = `/enroll-course/${id}/coursePlayer`;
     try {
       const { data } = await createOrder({
         variables: {
@@ -83,7 +85,7 @@ const CourseDetail = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: data.createOrder.totalAmount,
         currency: "INR",
-        name: "OMEXO",
+        name: "StudyDoorStep",
         description: "Web Development Course",
         order_id: data.createOrder.razorpayOrderId,
         handler: async function (response) {
@@ -180,7 +182,7 @@ const CourseDetail = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-3xl font-bold text-gray-900">
-                    ${course.course.price.toFixed(2)}
+                    ₹ {course.course.price.toFixed(2)}
                   </span>
                 </div>
                 <button

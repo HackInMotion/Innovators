@@ -132,7 +132,7 @@ const Categories = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-20 text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-4xl mx-auto">
+        {/* <div className="mt-20 text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-4xl mx-auto">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">
             Ready to start learning?
           </h3>
@@ -145,7 +145,7 @@ const Categories = () => {
           >
             Browse All Categories
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
