@@ -29,8 +29,12 @@ const CourseDetail = () => {
   });
 
   const token =
+<<<<<<< HEAD
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NDM4MzI3MzgsImV4cCI6MTc0MzgzNjMzOH0.j98G-4De-3Tss3f_yXl0kJXt8vcHdLaFaLutaBzdqlk";
 
+=======
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NDM5NjA0MjksImV4cCI6MTc0Mzk3ODQyOX0.Jct7s6yJ7q1GkMt5Gl4m4QzNxMjZMHfbk0CZuJtCBfQ";
+>>>>>>> 2252b364bb7bc1c49118f5a62d0dfa7f20e70563
   const [createOrder] = useMutation(CREATE_ORDER);
   const [verifyPayment] = useMutation(VERIFY_PAYMENT);
   const { data: isEnrollData } = useQuery(IS_USER_ENROLLED, {
