@@ -31,7 +31,11 @@ const Header = () => {
     return `${import.meta.env.VITE_BASE_IMAGE_URL}/${image}`;
   };
 
-  const menuItems = [
+  // Get token from localStorage
+  const token = localStorage.getItem("token");
+
+  // Define base menu items that are always visible
+  const baseMenuItems = [
     {
       name: "Home",
       link: "/",
@@ -46,17 +50,26 @@ const Header = () => {
       ],
     },
     {
-      name: "Dashboard",
-      link: "/analytics",
-      submenu: null,
-    },
-    {
       name: "Courses",
       link: "#",
       submenu: [
         { name: "Our Courses", link: "/courses" },
         { name: "Roadmaps", link: "/road-map" },
       ],
+    },
+    {
+      name: "Contact",
+      link: "/contact",
+      submenu: null,
+    },
+  ];
+
+  // Define authenticated-only menu items
+  const authenticatedMenuItems = [
+    {
+      name: "Dashboard",
+      link: "/analytics",
+      submenu: null,
     },
     {
       name: "Communities",
@@ -68,12 +81,11 @@ const Header = () => {
       link: "/quiz-contest",
       submenu: null,
     },
-    {
-      name: "Contact",
-      link: "/contact",
-      submenu: null,
-    },
   ];
+
+  const menuItems = token
+    ? [...baseMenuItems, ...authenticatedMenuItems]
+    : baseMenuItems;
 
   // Animation variants for left-sliding mobile menu
   const mobileMenuVariants = {
