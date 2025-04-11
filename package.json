@@ -1,0 +1,20 @@
+{
+  "name": "innovators",
+  "version": "1.0.0",
+  "description": "GGI Hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackInMotion/Innovators.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackInMotion/Innovators/issues"
+  },
+  "homepage": "https://github.com/HackInMotion/Innovators#readme"
+}
