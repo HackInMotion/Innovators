@@ -32,7 +32,8 @@ const Header = () => {
   };
 
   // Get token from localStorage
-  const token = localStorage.getItem("token");
+  const token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 
   // Define base menu items that are always visible
   const baseMenuItems = [
