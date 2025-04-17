@@ -5,7 +5,6 @@ import Home from "./Home";
 import AboutUs from "./aboutus";
 import ContactUs from "./contactus";
 import Communities from "./communities";
-import Courses from "./courses";
 import FAQ from "./faq";
 import ITCareerRoadmaps from "./RoadMap";
 import CodeCompiler from "../components/Compiler";
@@ -15,6 +14,8 @@ import CoursesByCategory from "../components/CoursesByCategory";
 import CourseDetail from "../components/CourseDetail";
 import CoursePlayer from "../components/CoursePlayer";
 import Categories from "../components/Categories";
+import AllSubCategories from "../components/getAllSubCategories";
+import UserEnrolledProtectedRoute from "./UserEnrolledProtectedRoute";
 
 const ClientRoute = () => {
   return (
@@ -30,12 +31,12 @@ const ClientRoute = () => {
         <Route path="/road-map" element={<ITCareerRoadmaps />} />
         <Route path="/compiler" element={<CodeCompiler />} />
         <Route path="/quiz-contest" element={<QuizContest />} />
-        <Route path="/category/:category" element={<CoursesByCategory />} />
-        <Route path="/course/:id" element={<CourseDetail />} />
-        <Route
-          path="/enroll-course/:courseId/coursePlayer"
-          element={<CoursePlayer />}
-        />
+        <Route path="/course/detail/:id" element={<CourseDetail />} />
+        <Route path="/course/:category" element={<CoursesByCategory />} />
+        <Route path="/category/:name" element={<AllSubCategories />} />
+        <Route element={<UserEnrolledProtectedRoute />}>
+          <Route path="/learn/:courseId/course" element={<CoursePlayer />} />
+        </Route>
       </Route>
     </Routes>
   );

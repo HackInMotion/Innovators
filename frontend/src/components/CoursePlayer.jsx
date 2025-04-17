@@ -7,15 +7,14 @@ import {
   Lock,
   ArrowLeft,
   ArrowRight,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import VideoPlayer from "../components/VideoPlayer";
-import { useQuery } from "@apollo/client";
-import { GET_ENROLLED_COURSE } from "../apiClient/Queries";
+import apiClient from "../apiClient/apiClient";
 
-const BASE_IMG_URL = "http://localhost:5000";
-
-const getFullImageUrl = (url) => `${BASE_IMG_URL}${url}`;
+const getFullUrl = (url) => `${import.meta.env.VITE_BASE_IMAGE_URL}${url}`;
 
 const CoursePlayer = () => {
   const [expandedModule, setExpandedModule] = useState(0);
@@ -28,25 +27,67 @@ const CoursePlayer = () => {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [activeTab, setActiveTab] = useState("about");
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const { courseId } = useParams();
-  const { data, error, loading } = useQuery(GET_ENROLLED_COURSE, {
-    variables: { id: parseInt(courseId) },
-  });
 
-  if (loading)
-    return <div className="text-center py-20">Loading course...</div>;
-  if (error) return <p>Error: {error.message}</p>;
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+        const response = await apiClient.get(`/courses/${courseId}`);
+        setCourse(response.data.data);
+      } catch (err) {
+        setError(
+          err.response?.data?.message || "Failed to fetch course details"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const course = data?.getCourseById?.course;
-  if (!course) return <div className="text-center py-20">Course not found</div>;
+    fetchCourse();
+  }, [courseId]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-red-500">
+        <AlertCircle className="h-8 w-8 mb-2" />
+        <p className="text-lg mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (!course) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-500">Course not found</p>
+      </div>
+    );
+  }
 
   const toggleModule = (moduleIndex) => {
     setExpandedModule(expandedModule === moduleIndex ? null : moduleIndex);
   };
 
   const handleLessonSelect = (moduleIndex, lessonIndex) => {
-    if (course.modules[moduleIndex].lessons[lessonIndex].locked) return;
+    if (course.course.modules[moduleIndex].lessons[lessonIndex].locked) return;
     setActiveLesson({ moduleIndex, lessonIndex });
     setPlaying(true);
     setProgress(0);
@@ -81,7 +122,7 @@ const CoursePlayer = () => {
 
   const navigateLesson = (direction) => {
     const { moduleIndex, lessonIndex } = activeLesson;
-    const currentModule = course.modules[moduleIndex];
+    const currentModule = course.course.modules[moduleIndex];
 
     if (direction === "prev") {
       // If not first lesson in current module
@@ -90,7 +131,7 @@ const CoursePlayer = () => {
       }
       // If first lesson in current module but not first module
       else if (moduleIndex > 0) {
-        const prevModule = course.modules[moduleIndex - 1];
+        const prevModule = course.course.modules[moduleIndex - 1];
         handleLessonSelect(moduleIndex - 1, prevModule.lessons.length - 1);
       }
     } else if (direction === "next") {
@@ -99,17 +140,22 @@ const CoursePlayer = () => {
         handleLessonSelect(moduleIndex, lessonIndex + 1);
       }
       // If last lesson in current module but not last module
-      else if (moduleIndex < course.modules.length - 1) {
+      else if (moduleIndex < course.course.modules.length - 1) {
         handleLessonSelect(moduleIndex + 1, 0);
       }
     }
   };
 
   const currentLesson =
-    course.modules[activeLesson.moduleIndex].lessons[activeLesson.lessonIndex];
+    course.course.modules[activeLesson.moduleIndex].lessons[
+      activeLesson.lessonIndex
+    ];
   const progressPercentage =
     (completedLessons.length /
-      course.modules.reduce((acc, module) => acc + module.lessons.length, 0)) *
+      course.course.modules.reduce(
+        (acc, module) => acc + module.lessons.length,
+        0
+      )) *
     100;
 
   return (
@@ -130,7 +176,7 @@ const CoursePlayer = () => {
         </div>
 
         <div className="divide-y divide-gray-200">
-          {course.modules.map((module, moduleIndex) => (
+          {course.course.modules.map((module, moduleIndex) => (
             <div key={moduleIndex} className="py-2">
               <button
                 onClick={() => toggleModule(moduleIndex)}
@@ -203,7 +249,7 @@ const CoursePlayer = () => {
         {/* Video Player */}
         <VideoPlayer
           key={currentLesson.id}
-          url={currentLesson.videoUrl}
+          url={getFullUrl(currentLesson.videoUrl)}
           thumbnail="https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg"
           locked={currentLesson.locked}
           playing={playing}
@@ -213,7 +259,6 @@ const CoursePlayer = () => {
           onEnded={markLessonComplete}
           onPrev={() => navigateLesson("prev")}
           onNext={() => navigateLesson("next")}
-          onSeek={(seconds) => console.log(`Seeked to ${seconds}`)}
           progress={progress}
           duration={duration}
           qualities={[

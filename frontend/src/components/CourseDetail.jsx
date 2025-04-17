@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -8,99 +8,107 @@ import {
   BookOpen,
   Check,
   Award,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { GET_COURSES_BY_ID, IS_USER_ENROLLED } from "../apiClient/Queries";
-import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_ORDER, VERIFY_PAYMENT } from "../apiClient/Mutations.js";
+import apiClient from "../apiClient/apiClient";
 
-const BASE_IMG_URL = "http://localhost:5000";
-
-const getFullImageUrl = (url) => `${BASE_IMG_URL}${url}`;
+const getFullUrl = (url) => `${import.meta.env.VITE_BASE_IMAGE_URL}${url}`;
 
 const CourseDetail = () => {
   const [expandedModule, setExpandedModule] = useState(null);
-  const params = useParams();
-  const id = params.id;
-  // const navigate = useNavigate();
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const { loading, error, data } = useQuery(GET_COURSES_BY_ID, {
-    variables: { id: parseInt(id) },
-  });
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const fetchCourse = async () => {
+      try {
+        setLoading(true);
+        const response = await apiClient.get(`/courses/${id}`);
+        setCourse(response.data.data);
+        const enrollmentResponse = await apiClient.get(
+          `/enrollments/check?courseId=${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setIsEnrolled(enrollmentResponse.data.data.isEnrolled);
+      } catch (err) {
+        setError(
+          err.response?.data?.message || "Failed to fetch course details"
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3NDM5NjA0MjksImV4cCI6MTc0Mzk3ODQyOX0.Jct7s6yJ7q1GkMt5Gl4m4QzNxMjZMHfbk0CZuJtCBfQ";
-  const [createOrder] = useMutation(CREATE_ORDER);
-  const [verifyPayment] = useMutation(VERIFY_PAYMENT);
-  const { data: isEnrollData } = useQuery(IS_USER_ENROLLED, {
-    variables: {
-      courseId: parseInt(id),
-    },
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  });
+    fetchCourse();
+  }, [id]);
 
-  if (loading) return <p>Loading courses...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  const course = data.getCourseById;
   const toggleModule = (moduleIndex) => {
     setExpandedModule(expandedModule === moduleIndex ? null : moduleIndex);
   };
 
-  const isEnrolled = isEnrollData?.isUserEnrolledInCourse.isEnrolled;
-  const handleEnrollment = () => {
+  const handleEnrollment = async () => {
     if (isEnrolled) {
-      window.location.href = `/enroll-course/${id}/coursePlayer`;
-    } else {
-      enrollCourse(course.course);
+      navigate(`/course/${id}/learn`);
+      return;
     }
-  };
-  const enrollCourse = async (course) => {
-    if (course.price == 0.0)
-      window.location.href = `/enroll-course/${id}/coursePlayer`;
+
+    const token = localStorage.getItem("token");
+
     try {
-      const { data } = await createOrder({
-        variables: {
-          courseId: parseInt(course.id),
-          totalAmount: course.price,
-          paymentMethod: "BANK_TRANSFER",
-        },
-        context: {
+      if (course.price === 0) {
+        await apiClient.post(`/enrollments/enroll-course?courseId=${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
-      });
-
-      if (!data || !data.createOrder) {
-        throw new Error("Order creation failed");
+        });
+        navigate(`/course/${id}/learn`);
+        return;
       }
+
+      // Paid course - create payment order
+      const orderResponse = await apiClient.post(
+        `/enrollments/create-order`,
+        {
+          courseId: id,
+          totalAmount: course.course.price,
+          paymentMethod: "BANK_TRANSFER",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-        amount: data.createOrder.totalAmount,
+        amount: orderResponse.data.data.order.totalAmount * 100,
         currency: "INR",
-        name: "StudyDoorStep",
-        description: "Web Development Course",
-        order_id: data.createOrder.razorpayOrderId,
-        handler: async function (response) {
+        name: "Your Learning Platform",
+        description: `Payment for ${course.title}`,
+        order_id: orderResponse.data.data.razorpayOrderId,
+        handler: async (response) => {
           try {
-            await verifyPayment({
-              variables: {
-                razorpay_order_id: response.razorpay_order_id,
-                orderId: parseInt(data.createOrder.order.id),
-                razorpayPaymentId: response.razorpay_payment_id,
-                signature: response.razorpay_signature,
-              },
+            await apiClient.post(`/enrollments/verify-payment`, {
+              razorpay_order_id: orderResponse.data.data.razorpayOrderId,
+              razorpay_payment_id: response.razorpay_payment_id,
+              orderId: orderResponse.data.data.order._id,
+              signature: response.razorpay_signature,
             });
-            alert("Payment verified successfully!");
-            window.location.href = `/enroll-course/${id}/coursePlayer`;
-          } catch (error) {
-            console.error("Payment verification failed", error);
+            navigate(`/course/${id}/learn`);
+          } catch (err) {
+            setError("Payment verification failed. Please contact support.");
           }
         },
         theme: {
@@ -108,12 +116,43 @@ const CourseDetail = () => {
         },
       };
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error("Enrollment failed", error);
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      setError(err.response?.data?.message || "Enrollment failed");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-red-500">
+        <AlertCircle className="h-8 w-8 mb-2" />
+        <p className="text-lg mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (!course) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-500">Course not found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -124,13 +163,14 @@ const CourseDetail = () => {
             <div className="md:flex-shrink-0 md:w-1/2">
               <img
                 className="h-full w-full object-cover"
-                src={getFullImageUrl(course.course.coverImage)}
-                alt={course.course.title}
+                src={getFullUrl(course.course.coverImage)}
+                alt={course.title}
+                loading="lazy"
               />
             </div>
             <div className="p-8 md:w-1/2">
               <div className="uppercase tracking-wide text-sm text-blue-600 font-semibold mb-1">
-                {course.course.category.name}
+                {course.course.categoryId?.name}
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 {course.course.title}
@@ -141,7 +181,7 @@ const CourseDetail = () => {
                 <div className="flex items-center text-yellow-500 bg-yellow-50 px-3 py-1 rounded-full">
                   <Star className="w-4 h-4 fill-current mr-1" />
                   <span className="text-sm font-medium">
-                    {course.course.rating}
+                    {course.course.rating || 0}
                   </span>
                 </div>
                 <div className="flex items-center text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
@@ -153,12 +193,12 @@ const CourseDetail = () => {
                 <div className="flex items-center text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
                   <BookOpen className="w-4 h-4 mr-1" />
                   <span className="text-sm">
-                    {course.course.modules.reduce(
-                      (acc, mod) => acc + mod.lessons.length,
-                      0
-                    )}{" "}
-                    lessons
+                    {course.course.modules?.length || 0} modules
                   </span>
+                </div>
+                <div className="flex items-center text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
+                  <BookOpen className="w-4 h-4 mr-1" />
+                  <span className="text-sm">{course.totalLessons} lessons</span>
                 </div>
                 <div className="flex items-center text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
                   <Clock className="w-4 h-4 mr-1" />
@@ -169,19 +209,21 @@ const CourseDetail = () => {
               <div className="flex items-center mb-6">
                 <img
                   className="h-10 w-10 rounded-full mr-3"
-                  src={getFullImageUrl(course.course.instructor.avatar)}
-                  alt={course.course.instructor.name}
+                  src={getFullUrl(course.course.instructorId?.profilePicture)}
+                  alt={course.course.instructorId?.fullname}
                 />
                 <div>
                   <p className="text-sm text-gray-500">Instructor</p>
-                  <p className="font-medium">{course.course.instructor.name}</p>
+                  <p className="font-medium">
+                    {course.course.instructorId?.fullname}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-3xl font-bold text-gray-900">
-                    ₹ {course.course.price.toFixed(2)}
+                    ₹ {course.course.price?.toFixed(2) || "Free"}
                   </span>
                 </div>
                 <button
@@ -199,33 +241,37 @@ const CourseDetail = () => {
           {/* Main Content */}
           <div className="md:w-2/3">
             {/* What You'll Learn */}
-            <div className="bg-white rounded-xl shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                What you'll learn
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {course.course.whatLearn.map((item, index) => (
-                  <div key={index} className="flex items-start">
-                    <Check className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
-                  </div>
-                ))}
+            {course.course.whatLearn?.length > 0 && (
+              <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  What you'll learn
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {course.course.whatLearn.map((item, index) => (
+                    <div key={index} className="flex items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
+                      <span className="text-gray-700">{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Requirements */}
-            <div className="bg-white rounded-xl shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Requirements
-              </h2>
-              <ul className="space-y-2">
-                {course.course.requirements.map((item, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-gray-700">• {item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {course.course.requirements?.length > 0 && (
+              <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Requirements
+                </h2>
+                <ul className="space-y-2">
+                  {course.course.requirements.map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-gray-700">• {item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Course Content */}
             <div className="bg-white rounded-xl shadow-md p-6">
@@ -235,7 +281,7 @@ const CourseDetail = () => {
               <div className="space-y-4">
                 {course.course.modules.map((module, moduleIndex) => (
                   <div
-                    key={moduleIndex}
+                    key={module._id}
                     className="border border-gray-200 rounded-lg overflow-hidden"
                   >
                     <button
@@ -259,7 +305,7 @@ const CourseDetail = () => {
                       <div className="divide-y divide-gray-200">
                         {module.lessons.map((lesson, lessonIndex) => (
                           <div
-                            key={lessonIndex}
+                            key={lesson._id}
                             className="p-4 flex items-center justify-between hover:bg-gray-50"
                           >
                             <div className="flex items-center">
@@ -268,7 +314,7 @@ const CourseDetail = () => {
                               </span>
                             </div>
                             <span className="text-sm text-gray-500">
-                              {lesson.duration} min
+                              {lesson.duration}
                             </span>
                           </div>
                         ))}
@@ -306,19 +352,21 @@ const CourseDetail = () => {
                 </div>
 
                 {/* Includes */}
-                <div className="border-t border-gray-200 pt-4">
-                  <h3 className="font-bold text-lg text-gray-900 mb-3">
-                    Includes
-                  </h3>
-                  <ul className="space-y-3">
-                    {course.course.outcomes.map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {course.course.outcomes?.length > 0 && (
+                  <div className="border-t border-gray-200 pt-4">
+                    <h3 className="font-bold text-lg text-gray-900 mb-3">
+                      Includes
+                    </h3>
+                    <ul className="space-y-3">
+                      {course.course.outcomes.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <Check className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 {/* Price & Enroll */}
                 <div className="border-t border-gray-200 pt-4">

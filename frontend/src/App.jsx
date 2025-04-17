@@ -12,7 +12,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
       </Routes>
-      <BotpressChat />
+      {/* <BotpressChat /> */}
     </Router>
   );
 }

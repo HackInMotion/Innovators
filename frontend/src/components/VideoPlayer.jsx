@@ -257,14 +257,14 @@ const VideoPlayer = ({
             )}
 
             <button
-              onClick={() => navigateLesson("prev")}
+              onClick={() => onPrev()}
               className="p-2 hover:bg-white/20 rounded-full"
               aria-label="Previous lesson"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <button
-              onClick={() => navigateLesson("next")}
+              onClick={() => onNext()}
               className="p-2 hover:bg-white/20 rounded-full"
               aria-label="Next lesson"
             >
