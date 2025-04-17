@@ -1,4 +1,4 @@
-import ChatGroupModel from "../../../db/models/chatgroup.model.js";
+import ChatGroupModel from "../../../db/models/Messaging/chatgroup.model.js";
 import asyncHandler from "../../utils/AsyncWrapper.js";
 import AppError from "../../utils/AppError.js";
 import ApiResponse from "../../utils/ApiResponse.js";

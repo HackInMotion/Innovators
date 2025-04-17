@@ -7,7 +7,8 @@ import AppError from "../../utils/AppError.js";
 
 // Password Validation Function
 const validatePassword = (password) => {
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return passwordRegex.test(password);
 };
 
@@ -17,7 +18,12 @@ const createUser = asyncHandler(async (req, res, next) => {
 
   // Validate password
   if (!validatePassword(password)) {
-    return next(new AppError(400, "Password must be at least 8 characters long and contain a number, a letter, and a special character."));
+    return next(
+      new AppError(
+        400,
+        "Password must be at least 8 characters long and contain a number, a letter, and a special character."
+      )
+    );
   }
 
   const allowedRoles = ["student", "admin", "teacher"];
@@ -106,7 +112,15 @@ const refreshToken = asyncHandler(async (req, res, next) => {
       }
     );
 
-    res.status(200).json(new ApiResponse(200, { token: newToken }, "Token refreshed successfully"));
+    res
+      .status(200)
+      .json(
+        new ApiResponse(
+          200,
+          { token: newToken },
+          "Token refreshed successfully"
+        )
+      );
   } catch (err) {
     return next(new AppError(401, "Invalid refresh token"));
   }
@@ -115,6 +129,17 @@ const refreshToken = asyncHandler(async (req, res, next) => {
 // Get User by ID
 const getUserById = asyncHandler(async (req, res, next) => {
   const user = await UserModel.findById(req.params.id).select("-password");
+  if (!user) {
+    return next(new AppError(404, "User not found"));
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, user, "User retrieved successfully"));
+});
+
+const getProfile = asyncHandler(async (req, res, next) => {
+  const user = await UserModel.findById(req.user._id).select("-password");
   if (!user) {
     return next(new AppError(404, "User not found"));
   }
@@ -155,7 +180,9 @@ const protectedRoutes = asyncHandler(async (req, res, next) => {
     } else if (err.name === "TokenExpiredError") {
       return next(new AppError(401, "Token has expired! Please log in again."));
     } else {
-      return next(new AppError(500, "Something went wrong with token verification"));
+      return next(
+        new AppError(500, "Something went wrong with token verification")
+      );
     }
   }
 });
@@ -177,4 +204,12 @@ const allowedTo = (...roles) => {
   });
 };
 
-export { createUser, loginUser, getUserById, refreshToken, protectedRoutes, allowedTo };
+export {
+  createUser,
+  loginUser,
+  getProfile,
+  getUserById,
+  refreshToken,
+  protectedRoutes,
+  allowedTo,
+};

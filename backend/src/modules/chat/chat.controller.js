@@ -1,4 +1,4 @@
-import ChatModel from "../../../db/models/chat.model.js";
+import ChatModel from "../../../db/models/Messaging/chat.model.js";
 import mongoose from "mongoose";
 import asyncHandler from "../../utils/AsyncWrapper.js";
 import AppError from "../../utils/AppError.js";

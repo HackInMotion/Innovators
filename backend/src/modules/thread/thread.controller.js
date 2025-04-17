@@ -1,4 +1,4 @@
-import ThreadModel from "../../../db/models/thread.model.js";
+import DiscussionModel from "../../../db/models/community/discussion.model.js";
 import asyncHandler from "../../utils/AsyncWrapper.js";
 import ApiResponse from "../../utils/ApiResponse.js";
 import AppError from "../../utils/AppError.js";
@@ -13,7 +13,7 @@ const createThread = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const thread = new ThreadModel({
+  const thread = new DiscussionModel({
     forumId,
     userId: req.user._id,
     title,
@@ -29,7 +29,7 @@ const createThread = asyncHandler(async (req, res, next) => {
 
 //Get threads by forumId
 const getThreadsByForum = asyncHandler(async (req, res, next) => {
-  const threads = await ThreadModel.find({
+  const threads = await DiscussionModel.find({
     forumId: req.params.forumId,
   }).populate("userId", "name email");
 
@@ -44,7 +44,7 @@ const getThreadsByForum = asyncHandler(async (req, res, next) => {
 
 // Get a thread by ID
 const getThreadById = asyncHandler(async (req, res, next) => {
-  const thread = await ThreadModel.findById(req.params.id).populate(
+  const thread = await DiscussionModel.findById(req.params.id).populate(
     "userId",
     "name email"
   );

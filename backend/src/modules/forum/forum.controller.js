@@ -1,4 +1,4 @@
-import ForumModel from "../../../db/models/forum.model.js";
+import ForumModel from "../../../db/models/community/forum.model.js";
 import asyncHandler from "../../utils/asyncWrapper.js";
 import ApiResponse from "../../utils/ApiResponse.js";
 import AppError from "../../utils/AppError.js";

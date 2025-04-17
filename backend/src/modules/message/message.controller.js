@@ -1,8 +1,8 @@
 import asyncHandler from "../../utils/AsyncWrapper.js";
 import AppError from "../../utils/AppError.js";
 import ApiResponse from "../../utils/ApiResponse.js";
-import MessageModel from "../../../db/models/message.model.js";
-import ThreadModel from "../../../db/models/thread.model.js";
+import MessageModel from "../../../db/models/Messaging/message.model.js";
+import DiscussionModel from "../../../db/models/community/discussion.model.js";
 
 // Create a new message
 const createMessage = asyncHandler(async (req, res, next) => {
@@ -12,7 +12,7 @@ const createMessage = asyncHandler(async (req, res, next) => {
     return next(new AppError(400, "Both threadId and content are required"));
   }
 
-  const thread = await ThreadModel.findById(threadId);
+  const thread = await DiscussionModel.findById(threadId);
   if (!thread) {
     return next(new AppError(404, "Thread not found"));
   }
