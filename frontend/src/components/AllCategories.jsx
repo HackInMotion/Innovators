@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import apiClient from "../apiClient/apiClient";
-import { PlusCircle } from "lucide-react"; // Importing from lucide-react
 
 const getAllCategories = async () => {
   const response = await apiClient.get("/categories");

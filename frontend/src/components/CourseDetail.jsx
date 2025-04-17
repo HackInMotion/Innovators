@@ -30,21 +30,24 @@ const CourseDetail = () => {
     const fetchCourse = async () => {
       try {
         setLoading(true);
+
+        // Fetch course details
         const response = await apiClient.get(`/courses/${id}`);
         setCourse(response.data.data);
+
+        // Prepare headers only if token exists
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+        // Check enrollment
         const enrollmentResponse = await apiClient.get(
           `/enrollments/check?courseId=${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers }
         );
         setIsEnrolled(enrollmentResponse.data.data.isEnrolled);
       } catch (err) {
-        setError(
-          err.response?.data?.message || "Failed to fetch course details"
-        );
+        // setError(
+        //   err.response?.data?.message || "Failed to fetch course details"
+        // );
       } finally {
         setLoading(false);
       }
@@ -59,7 +62,7 @@ const CourseDetail = () => {
 
   const handleEnrollment = async () => {
     if (isEnrolled) {
-      navigate(`/course/${id}/learn`);
+      navigate(`/learn/${id}/course`);
       return;
     }
 
@@ -72,7 +75,7 @@ const CourseDetail = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        navigate(`/course/${id}/learn`);
+        navigate(`/learn/${id}/course`);
         return;
       }
 
